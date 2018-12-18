@@ -1,0 +1,10 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: cloudribbon
+eureka:
+  client:
+    service-url:
+      #当前生产者注册地址 （注册中心地址）
+      defaultZone: http://localhost:8088/eureka

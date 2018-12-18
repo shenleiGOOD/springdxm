@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.TestMapper">
+
+  <resultMap id="logMap" type="com.jk.model.User">
+      <!--column 是数据库的字段  property 实体类属性-->
+      <id column="id" property="id"></id>
+      <result column="name" property="name"></result>
+      <result column="counts" property="counts"></result>
+      <result column="password" property="password"></result>
+  </resultMap>
+  <!--
+     resultMap 结果集映射 当数据库字段与实体字段不一致时 用此映射建立实体类关系
+     resultType 把返回值根据java反射原则转换成对应的实体类，要求数据字段必须与实体类一致，否则报错
+  -->
+  <select id="queryUser" resultMap="logMap">
+       select * from t_user
+  </select>
+    <insert id="addUser">
+        insert  into t_user(id,name,counts)
+          values(#{user.id},#{user.name},#{user.counts})
+    </insert>
+    <delete id="deleteuser">
+        delete from t_user where id =#{id}
+    </delete>
+    <select id="login" resultMap="logMap">
+        select *  from t_user where name=#{name} limit 1
+    </select>
+    <select id="finduserbyid" resultType="com.jk.model.User">
+        select * from t_user where id = #{id}
+    </select>
+    <update id="updateuser">
+        update t_user set
+        <if test="user.name != null">
+            name=#{user.name},
+        </if>
+        <if test="user.counts != null">
+            counts=#{user.counts}
+        </if>
+        where id = #{user.id}
+    </update>
+    <!--<select id="querycoursecount" resultType="long">
+         select count(*) from t_course
+    </select>
+      <delete id="deletecourse">
+          delete from t_course where courseId in
+          <foreach collection="id" item="ids" index="no" open="("
+                   separator="," close=")">
+              #{ids}
+          </foreach>
+
+      </delete>
+      <insert id="addcourse">
+          insert  into t_course(courseId,courseName,courseInfo,courseState,courseTime)
+          values(#{co.courseid},#{co.coursename},#{co.courseinfo},#{co.coursestate},#{co.coursetime})
+      </insert>
+      <select id="toupdatecourse" resultMap="logMap">
+         select * from t_course where courseId=#{id}
+    </select>
+      <update id="updatecourse">
+          update  t_course set
+              courseName=#{co.coursename},
+              courseInfo=#{co.courseinfo},
+              courseState=#{co.coursestate},
+              courseTime=#{co.coursetime}
+          where courseId=#{co.courseid}
+      </update>-->
+</mapper>

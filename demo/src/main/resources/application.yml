@@ -1,0 +1,32 @@
+connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000mapper-locations=classpath:mapper/*.xml
+# Spring Datasource Settings
+spring:
+    thymeleaf:
+        mode: HTML5
+        encoding: UTF-8
+        content-type: text/html
+  #是否开启thymeleaf缓存 不用重启项目也能加载 最新模板信息
+        cache: false
+    datasource:
+        name: druidDataSource
+        type: com.alibaba.druid.pool.DruidDataSource
+        druid:
+            driver-class-name: com.mysql.jdbc.Driver
+            url: jdbc:mysql://localhost:3306/1804a_3?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+            username: root
+            password: root
+            max-active: 100
+            initial-size: 1
+            max-wait: 60000
+            min-idle: 1
+            time-between-eviction-runs-millis: 60000
+            min-evictable-idle-time-millis: 300000
+            validation-query: select 'x'
+            test-while-idle: true
+            test-on-borrow: false
+            test-on-return: false
+            pool-prepared-statements: true
+            max-open-prepared-statements: 50
+            max-pool-prepared-statement-per-connection-size: 20
+mybatis:
+    mapper-locations: classpath:mapper/*.xml
